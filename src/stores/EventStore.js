@@ -17,4 +17,4 @@ async function loadEvents() {
 
 }
 
-loadEvents().catch((e) => console.error(e));
+loadEvents().catch((e) => console.log(e));
