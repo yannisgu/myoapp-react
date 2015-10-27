@@ -13,6 +13,7 @@ import app from '../App'
 
 var eventDetail = React.createClass({
     componentDidMount: function() {
+
     },
     openDesciption: function() {
         app.emit("openUrl", this.props.event.url)
@@ -39,7 +40,7 @@ var eventDetail = React.createClass({
     },
      render: function() {
          var event = this.props.event;
-         return <View>
+         return <View style={{flex: 1, top: 65}}>
             <View style={style.row}>
                 <Text style={style.label}>Name</Text>
                 <Text style={style.value}>{event.name}</Text>

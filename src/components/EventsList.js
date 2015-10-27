@@ -23,11 +23,11 @@ var eventsList = React.createClass({
     },
 
     getInitialState: function() {
-        return { dataSource: ds.cloneWithRows([]), };
+        return { dataSource: ds.cloneWithRows(eventsStore.get().events)};
      },
      render: function() {
          return (
-             <ListView ref={c => this.listView = c} dataSource={this.state.dataSource} renderRow=
+             <ListView  ref={c => this.listView = c} dataSource={this.state.dataSource} renderRow=
                 {(event) => <EventRow event={event}/>} />
         );
     },

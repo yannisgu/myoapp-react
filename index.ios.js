@@ -10,15 +10,28 @@ var {
   StyleSheet,
   Text,
   View,
-  NavigationBarIOS
+  NavigatorIOS
 } = React;
 
 var EventsList = require("./src/components/EventsList")
+var EventDetail = require("./src/components/EventDetail")
+
+var app = require("./src/App")
+
+var _navigator = null;
+
+app.on("openEvent").subscribe(function(event) {
+     _navigator.push({
+         title: event.name,
+         component: EventDetail,
+         passProps: {event: event}
+     });
+});
 
 
 var MyOAppReact = React.createClass({
   render: function() {
-    return (<NavigationBarIOS initialRoute={{
+    return (<NavigatorIOS style={{flex: 1}} ref={n => _navigator = n} initialRoute={{
                 component: EventsList,
                 title: 'MyOApp'
             }} />

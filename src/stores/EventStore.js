@@ -2,7 +2,7 @@ import Freezer from 'freezer-js'
 import oevents from '../data/OEventsService'
 import localStorage from '../data/LocalStorage'
 
-let store = new Freezer({events: [{name: "adsf"}]});
+let store = new Freezer({events: []});
 
 export default store;
 
