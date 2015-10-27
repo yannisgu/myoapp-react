@@ -15,10 +15,15 @@ var {
 } = React;
 
 var app = require( "./src/App")
+var WebIntent = require('react-native-webintent');
 
 app.on("openEvent").subscribe(function(event) {
     _navigator.push({name: "eventDetail", event: event})
 });
+
+app.on("openUrl").subscribe(function(url) {
+    WebIntent.open(url);
+})
 
 var EventsList = require("./src/components/EventsList")
 var EventDetail = require("./src/components/EventDetail")

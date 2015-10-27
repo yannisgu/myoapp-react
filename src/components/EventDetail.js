@@ -4,15 +4,39 @@ var {
   StyleSheet,
   Text,
   View,
-  ListView
+  ListView,
+  TouchableHighlight
 } = React;
 
+import app from '../App'
 
 
 var eventDetail = React.createClass({
     componentDidMount: function() {
     },
+    openDesciption: function() {
+        app.emit("openUrl", this.props.event.url)
+    },
+    openStartlist: function() {
+        app.emit("openUrl", this.props.event.urlStartlist)
+    },
+    openTimetable: function() {
+        var item = this.props.event;
+        var to = "";
+    	if(item.eventCenter) {
+    		to = "to=" + item.eventCenter;
+    	}
+    	else if(item.eventCenterLatitude && item.eventCenterLongitude) {
+    		to = "toll=" + item.eventCenterLatitude + ',' + item.eventCenterLongitude;
+    	}
 
+    	if(item.date) {
+    		var date = item.date / 1000;
+    	}
+    	var timetableUrl = "sbbmobileb2c://timetable?" + to  +"&time=" + date + '&accessid=dm89518e7a4e0bcf670';
+
+    	app.emit("openUrl", timetableUrl);
+    },
      render: function() {
          var event = this.props.event;
          return <View>
@@ -32,6 +56,19 @@ var eventDetail = React.createClass({
                 <Text style={style.label}>Ort</Text>
                 <Text style={style.value}>{event.eventCenter}</Text>
              </View>
+             {(() => {if(event.url) {
+                 return <TouchableHighlight onPress={this.openDesciption}>
+                    <Text>Aussschreibung</Text>
+                 </TouchableHighlight>
+             }})()}
+             {(() => {if(event.urlStartlist) {
+                 return <TouchableHighlight onPress={this.openStartlist}>
+                    <Text>Starliste</Text>
+                 </TouchableHighlight>
+             }})()}
+             <TouchableHighlight onPress={this.openTimetable}>
+                <Text>Anfahrt</Text>
+            </TouchableHighlight>
          </View>
     }
 });
