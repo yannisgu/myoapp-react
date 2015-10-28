@@ -16,6 +16,7 @@ var {
 
 var EventsList = require("./src/components/EventsList")
 var EventDetail = require("./src/components/EventDetail")
+var MapsList = require("./src/components/MapsList")
 var IosNavigationBar = require("./src/components/IosNavigationBar")
 require("./src/reactions/Reactions")
 
@@ -26,6 +27,11 @@ var _navigator = null;
 
 app.on("openEvent").subscribe(function(event) {
     _navigator.push({name: "eventDetail", event: event})
+
+});
+
+app.on("openMaps").subscribe(function(event) {
+    _navigator.push({name: "mapsList", event: event})
 
 });
 
@@ -47,6 +53,10 @@ var MyOAppReact = React.createClass({
            case "eventDetail":
                 this.navigationBar.setState({title: route.event.name, showBack: true})
                return <EventDetail event={route.event} />
+           case "mapsList":
+                this.navigationBar.setState({title: "Karten: " + route.event.map, showBack: true})
+               return <MapsList event={route.event} />
+
        }
    },
    getInitialState: function() {
