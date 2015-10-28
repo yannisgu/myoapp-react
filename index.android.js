@@ -21,12 +21,20 @@ app.on("openEvent").subscribe(function(event) {
     _navigator.push({name: "eventDetail", event: event})
 });
 
+app.on("openMaps").subscribe(function(event) {
+    _navigator.push({name: "mapsList", event: event})
+});
+
+
 app.on("openUrl").subscribe(function(url) {
     WebIntent.open(url);
 })
 
 var EventsList = require("./src/components/EventsList")
 var EventDetail = require("./src/components/EventDetail")
+var MapsList = require("./src/components/MapsList")
+
+require("./src/reactions/Reactions")
 
 var _navigator;
 BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -46,6 +54,8 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
             return <EventsList />
         case "eventDetail":
             return <EventDetail event={route.event} />
+        case "mapsList":
+            return <MapsList event={route.event} />
     }
 };
 

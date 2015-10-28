@@ -8,6 +8,7 @@
   "dependencies": {
     "freezer-js": "^0.9.2",
     "react-native": "^0.13.1",
+    "react-native-navbar": "^1.0.3",
     "react-native-webintent": "^1.0.3",
     "rx": "^4.0.6"
   }

@@ -21,6 +21,9 @@ var eventDetail = React.createClass({
     openStartlist: function() {
         app.emit("openUrl", this.props.event.urlStartlist)
     },
+    openResults: function() {
+        app.emit("openUrl", this.props.event.urlResults)
+    },
     openTimetable: function() {
         var item = this.props.event;
         var to = "";
@@ -38,9 +41,14 @@ var eventDetail = React.createClass({
 
     	app.emit("openUrl", timetableUrl);
     },
+    openMaps: function() {
+        var event = this.props.event;
+
+        app.emit("openMaps", event);
+    },
      render: function() {
          var event = this.props.event;
-         return <View style={{flex: 1, top: 65}}>
+         return <View>
             <View style={style.row}>
                 <Text style={style.label}>Name</Text>
                 <Text style={style.value}>{event.name}</Text>
@@ -67,9 +75,17 @@ var eventDetail = React.createClass({
                     <Text>Starliste</Text>
                  </TouchableHighlight>
              }})()}
+             {(() => {if(event.urlResults) {
+                 return <TouchableHighlight onPress={this.openResults}>
+                    <Text>Resultate</Text>
+                 </TouchableHighlight>
+             }})()}
              <TouchableHighlight onPress={this.openTimetable}>
                 <Text>Anfahrt</Text>
             </TouchableHighlight>
+            <TouchableHighlight onPress={this.openMaps}>
+               <Text>Karten</Text>
+           </TouchableHighlight>
          </View>
     }
 });
