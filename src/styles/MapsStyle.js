@@ -10,7 +10,11 @@ let style = {
     },
     label: {
         ...base.text,
-        flex: 1
+        flex: 1,
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 5,
+        marginTop: 6
     }
 }
 

@@ -9,7 +9,7 @@ var {
 } = React;
 
 import app from '../App'
-
+import style from '../styles/EventDetailStyle'
 
 var eventDetail = React.createClass({
     componentDidMount: function() {
@@ -66,46 +66,28 @@ var eventDetail = React.createClass({
                 <Text style={style.value}>{event.eventCenter}</Text>
              </View>
              {(() => {if(event.url) {
-                 return <TouchableHighlight onPress={this.openDesciption}>
-                    <Text>Aussschreibung</Text>
+                 return <TouchableHighlight onPress={this.openDesciption} style={style.row}>
+                    <Text style={style.linkText}>Aussschreibung</Text>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlStartlist) {
-                 return <TouchableHighlight onPress={this.openStartlist}>
-                    <Text>Starliste</Text>
+                 return <TouchableHighlight onPress={this.openStartlist} style={style.row}>
+                    <Text style={style.linkText}>Starliste</Text>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlResults) {
-                 return <TouchableHighlight onPress={this.openResults}>
-                    <Text>Resultate</Text>
+                 return <TouchableHighlight onPress={this.openResults} style={style.row}>
+                    <Text style={style.linkText}>Resultate</Text>
                  </TouchableHighlight>
              }})()}
-             <TouchableHighlight onPress={this.openTimetable}>
-                <Text>Anfahrt</Text>
+             <TouchableHighlight onPress={this.openTimetable} style={style.row}>
+                <Text style={style.linkText}>Anfahrt</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={this.openMaps}>
-               <Text>Karten</Text>
+            <TouchableHighlight onPress={this.openMaps} style={style.row}>
+               <Text style={style.linkText}>Karten</Text>
            </TouchableHighlight>
          </View>
     }
 });
-
-var baseStyle = {
-    color: 'black'
-}
-
-var style = {
-    row: {
-        flexDirection: 'row'
-    },
-    label: {
-        ...baseStyle,
-        width: 50
-    },
-    value: {
-        ...baseStyle,
-        flex: 1
-    }
-}
 
 export default eventDetail;
