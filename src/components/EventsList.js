@@ -18,6 +18,21 @@ var eventsList = React.createClass({
     componentDidMount: function() {
         eventsStore.on("update",
             value => {
+                if(eventsStore.get().events.length > 0) {
+                    var scrollIndex = null;
+                    for(var i in eventsStore.get().events) {
+                        var event =  eventsStore.get().events[i]
+                        if(event.date  >= new Date().getTime() - (1000*60*60*24)) {
+                			scrollIndex = i;
+                            break;
+                        }
+                    }
+                    if(scrollIndex) {
+
+                        //this.listView.getScrollResponder().scrollTo(66 * scrollIndex)
+                    }
+                }
+
                 this.setState({dataSource: ds.cloneWithRows(value.events)});
             });
     },

@@ -25,6 +25,14 @@ app.on("openMaps").subscribe(function(event) {
     _navigator.push({name: "mapsList", event: event})
 });
 
+app.on("openResults").subscribe(function(event) {
+    _navigator.push({name: "resultsIndex", event: event})
+});
+
+app.on("openResultsForCategory").subscribe(function(category) {
+    _navigator.push({name: "resultsByCategory", category: category})
+});
+
 
 app.on("openUrl").subscribe(function(url) {
     WebIntent.open(url);
@@ -33,6 +41,9 @@ app.on("openUrl").subscribe(function(url) {
 var EventsList = require("./src/components/EventsList")
 var EventDetail = require("./src/components/EventDetail")
 var MapsList = require("./src/components/MapsList")
+var ResultsIndex = require("./src/components/ResultsIndex")
+var ResultsByCategory = require("./src/components/ResultsByCategory")
+
 
 require("./src/reactions/Reactions")
 
@@ -56,6 +67,10 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
             return <EventDetail event={route.event} />
         case "mapsList":
             return <MapsList event={route.event} />
+        case "resultsIndex":
+            return <ResultsIndex event={route.event} />
+        case "resultsByCategory":
+            return <ResultsByCategory category={route.category} />
     }
 };
 

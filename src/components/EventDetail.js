@@ -21,8 +21,12 @@ var eventDetail = React.createClass({
     openStartlist: function() {
         app.emit("openUrl", this.props.event.urlStartlist)
     },
-    openResults: function() {
+    openExternalResults: function() {
         app.emit("openUrl", this.props.event.urlResults)
+    },
+    openResults: function() {
+        console.log("asdf")
+        app.emit("openResults", this.props.event)
     },
     openTimetable: function() {
         var item = this.props.event;
@@ -78,6 +82,11 @@ var eventDetail = React.createClass({
              {(() => {if(event.urlResults) {
                  return <TouchableHighlight onPress={this.openResults} style={style.row}>
                     <Text style={style.linkText}>Resultate</Text>
+                 </TouchableHighlight>
+             }})()}
+             {(() => {if(event.urlResults) {
+                 return <TouchableHighlight onPress={this.openExternalResults} style={style.row}>
+                    <Text style={style.linkText}>Resultate (Erweitert)</Text>
                  </TouchableHighlight>
              }})()}
              <TouchableHighlight onPress={this.openTimetable} style={style.row}>

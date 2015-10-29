@@ -19,25 +19,35 @@ var EventDetail = require("./src/components/EventDetail")
 var MapsList = require("./src/components/MapsList")
 var IosNavigationBar = require("./src/components/IosNavigationBar")
 require("./src/reactions/Reactions")
-
+var ResultsIndex = require("./src/components/ResultsIndex")
+var ResultsByCategory = require("./src/components/ResultsByCategory")
 
 var app = require("./src/App")
 
 var _navigator = null;
 
 app.on("openEvent").subscribe(function(event) {
-    _navigator.push({name: "eventDetail", event: event})
-
+    _navigator.push({name: "eventDetail", event: event});
 });
 
 app.on("openMaps").subscribe(function(event) {
-    _navigator.push({name: "mapsList", event: event})
-
+    _navigator.push({name: "mapsList", event: event});
 });
+
+app.on("openResults").subscribe(function(event) {
+    _navigator.push({name: "resultsIndex", event: event})
+});
+
+app.on("openResultsForCategory").subscribe(function(category) {
+    _navigator.push({name: "resultsByCategory", category: category})
+});
+
 
 app.on("openUrl").subscribe(function(url) {
     LinkingIOS.openURL(url);
 });
+
+
 
 var MyOAppReact = React.createClass({
     navigator: null,
@@ -56,6 +66,10 @@ var MyOAppReact = React.createClass({
            case "mapsList":
                 this.navigationBar.setState({title: "Karten: " + route.event.map, showBack: true})
                return <MapsList event={route.event} />
+           case "resultsIndex":
+                return <ResultsIndex event={route.event} />
+            case "resultsByCategory":
+                 return <ResultsByCategory category={route.category} />
 
        }
    },
