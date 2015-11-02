@@ -17,23 +17,6 @@ var {
 var app = require( "./src/App")
 var WebIntent = require('react-native-webintent');
 
-app.on("openEvent").subscribe(function(event) {
-    _navigator.push({name: "eventDetail", event: event})
-});
-
-app.on("openMaps").subscribe(function(event) {
-    _navigator.push({name: "mapsList", event: event})
-});
-
-app.on("openResults").subscribe(function(event) {
-    _navigator.push({name: "resultsIndex", event: event})
-});
-
-app.on("openResultsForCategory").subscribe(function(category) {
-    _navigator.push({name: "resultsByCategory", category: category})
-});
-
-
 app.on("openUrl").subscribe(function(url) {
     WebIntent.open(url);
 })
@@ -43,7 +26,7 @@ var EventDetail = require("./src/components/EventDetail")
 var MapsList = require("./src/components/MapsList")
 var ResultsIndex = require("./src/components/ResultsIndex")
 var ResultsByCategory = require("./src/components/ResultsByCategory")
-
+var ResultsByRunner = require("./src/components/ResultsByRunner")
 
 require("./src/reactions/Reactions")
 
@@ -58,7 +41,8 @@ BackAndroid.addEventListener('hardwareBackPress', () => {
 
 
 var RouteMapper = function(route, navigationOperations, onComponentRef) {
-     _navigator = navigationOperations;
+    _navigator = navigationOperations;
+     app.setNavigator(navigationOperations);
 
     switch(route.name) {
         case "index":
@@ -70,7 +54,9 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
         case "resultsIndex":
             return <ResultsIndex event={route.event} />
         case "resultsByCategory":
-            return <ResultsByCategory category={route.category} />
+            return <ResultsByCategory category={route.category} results={route.results} />
+        case "resultsByRunner":
+            return <ResultsByRunner runner={route.runner} results={route.results} />
     }
 };
 

@@ -2,6 +2,7 @@ import app from '../App'
 import resultsStore from '../stores/ResultsStore'
 import localStorage from '../data/LocalStorage'
 import resultsService from '../data/ResultsService'
+import * as resultsRanking from "../data/ResultsRanking"
 
 app.on("openResults").subscribe(async (event) => {
     if(!resultsStore.get().events[event.id]) {
@@ -17,9 +18,15 @@ app.on("openResults").subscribe(async (event) => {
                 await localStorage.set("results-" + event.id, JSON.stringify(results));
             }
 
+            for(var i in results.categories) {
+                var cat = results.categories[i];
+                results.categories[i] = resultsRanking.parseRanking(cat);
+            }
+
+            console.log(results)
+
             var value = {};
             value[event.id] = results;
-            console.log(results)
             resultsStore.get().events.set(value);
         }
         catch(error) {

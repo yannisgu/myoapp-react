@@ -52,6 +52,8 @@ var eventDetail = React.createClass({
     },
      render: function() {
          var event = this.props.event;
+         var date = new Date(event.date);
+         var dateString = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
          return <View>
             <View style={style.row}>
                 <Text style={style.label}>Name</Text>
@@ -59,7 +61,7 @@ var eventDetail = React.createClass({
             </View>
             <View style={style.row}>
                <Text style={style.label}>Datum</Text>
-               <Text style={style.value}>{event.date}</Text>
+               <Text style={style.value}>{dateString}</Text>
             </View>
             <View style={style.row}>
                 <Text style={style.label}>Karte</Text>

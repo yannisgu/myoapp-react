@@ -21,27 +21,11 @@ var IosNavigationBar = require("./src/components/IosNavigationBar")
 require("./src/reactions/Reactions")
 var ResultsIndex = require("./src/components/ResultsIndex")
 var ResultsByCategory = require("./src/components/ResultsByCategory")
+var ResultsByRunner = require("./src/components/ResultsByRunner")
 
 var app = require("./src/App")
 
 var _navigator = null;
-
-app.on("openEvent").subscribe(function(event) {
-    _navigator.push({name: "eventDetail", event: event});
-});
-
-app.on("openMaps").subscribe(function(event) {
-    _navigator.push({name: "mapsList", event: event});
-});
-
-app.on("openResults").subscribe(function(event) {
-    _navigator.push({name: "resultsIndex", event: event})
-});
-
-app.on("openResultsForCategory").subscribe(function(category) {
-    _navigator.push({name: "resultsByCategory", category: category})
-});
-
 
 app.on("openUrl").subscribe(function(url) {
     LinkingIOS.openURL(url);
@@ -54,6 +38,7 @@ var MyOAppReact = React.createClass({
     navigationBar: null,
     renderScene: function(route, navigationOperations, onComponentRef) {
         _navigator = navigationOperations;
+        app.setNavigator(_navigator);
        switch(route.name) {
            case "index":
                 if(this.navigationBar) {
@@ -69,7 +54,9 @@ var MyOAppReact = React.createClass({
            case "resultsIndex":
                 return <ResultsIndex event={route.event} />
             case "resultsByCategory":
-                 return <ResultsByCategory category={route.category} />
+                 return <ResultsByCategory category={route.category} results={route.results} />
+             case "resultsByRunner":
+                return <ResultsByRunner restuls={route.results} runner={route.runner} />
 
        }
    },
@@ -85,6 +72,7 @@ var MyOAppReact = React.createClass({
       var firstRoute = {
           name: 'index'
       };
+      console.log("test")
 
     return (<View style={{ flex: 1, }}>
                 <IosNavigationBar ref={n => this.navigationBar = n} onBack={this.onBack}/>

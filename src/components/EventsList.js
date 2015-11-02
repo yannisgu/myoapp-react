@@ -8,8 +8,8 @@ var {
   ListView
 } = React;
 
-import EventRow from './EventRow'
-
+import EventRow from './EventRow';
+import Tabs from "react-native-tabs"
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -18,32 +18,49 @@ var eventsList = React.createClass({
     componentDidMount: function() {
         eventsStore.on("update",
             value => {
-                if(eventsStore.get().events.length > 0) {
-                    var scrollIndex = null;
-                    for(var i in eventsStore.get().events) {
-                        var event =  eventsStore.get().events[i]
-                        if(event.date  >= new Date().getTime() - (1000*60*60*24)) {
-                			scrollIndex = i;
-                            break;
-                        }
-                    }
-                    if(scrollIndex) {
-
-                        //this.listView.getScrollResponder().scrollTo(66 * scrollIndex)
-                    }
-                }
-
-                this.setState({dataSource: ds.cloneWithRows(value.events)});
+                this.setState(this.calculateState());
             });
     },
+    calculateState: function() {
+        var future = [];
+        var past = [];
+        for(var i in eventsStore.get().events) {
+            var event =  eventsStore.get().events[i]
+            if(event.date  >= new Date().getTime() - (1000*60*60*24)) {
+                future.push(event);
+            }
+            if(event.date  <= new Date().getTime()) {
+                past.push(event);
+            }
+        }
 
+        past.reverse();
+
+        return {pastDataSource: ds.cloneWithRows(past), futureDataSource: ds.cloneWithRows(future)};
+    },
     getInitialState: function() {
-        return { dataSource: ds.cloneWithRows(eventsStore.get().events)};
+        return this.calculateState();
      },
      render: function() {
          return (
-             <ListView  ref={c => this.listView = c} dataSource={this.state.dataSource} renderRow=
-                {(event) => <EventRow event={event}/>} />
+             <View  style={{flex: 1}}>
+
+            {(() => {
+                if(this.state.page == "future") {
+                    return <ListView  ref={c => this.listView = c} dataSource={this.state.futureDataSource} renderRow=
+                    {(event) => <EventRow event={event}/>} />
+                }
+                else {
+                    return <ListView  ref={c => this.listView = c} dataSource={this.state.pastDataSource} renderRow=
+                    {(event) => <EventRow event={event}/>} />
+                }
+            })()}
+            <Tabs selected="future" style={{backgroundColor: 'white'}}
+             onSelect={(el) => {this.setState({page: el.props.name});return {style:{color:'red'}}}}>
+               <Text name="future">Zukünftige Anlässe</Text>
+               <Text name="back">Vergangene Anlässe</Text>
+           </Tabs>
+            </View>
         );
     },
 });

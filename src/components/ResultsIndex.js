@@ -20,9 +20,8 @@ var ResultsIndex = React.createClass({
     render: function() {
         return <ScrollView>
             {this.state.results.categories.map((c) => {
-                return <TouchableHighlight onPress={() => app.emit("openResultsForCategory", c)}>
+                return <TouchableHighlight onPress={() => app.emit("openResultsForCategory", {results: this.state.results, category: c})}>
                     <Text>{c.name}</Text>
-                    <Text>{c.time}</Text>
                 </TouchableHighlight>
             })}
         </ScrollView>
