@@ -1,9 +1,5 @@
 import base from './BaseStyle'
 
-var text = {
-    ...base.text,
-    fontSize: 18
-}
 
 var style = {
     row: {
@@ -11,19 +7,17 @@ var style = {
         height: 30
     },
     label: {
-        ...text,
+        ...base.text,
         width: 60,
-        marginLeft: 10
     },
     value: {
-        ...text,
+        ...base.text,
         flex: 1,
         fontWeight: 'bold'
     },
     linkText: {
-        ...text,
+        ...base.text,
         fontWeight: 'bold',
-        marginLeft: 10
     }
 }
 

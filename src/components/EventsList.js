@@ -10,6 +10,8 @@ var {
 
 import EventRow from './EventRow';
 import Tabs from "react-native-tabs"
+import s from '../styles/EventListStyle';
+import baseStyle from '../styles/BaseStyle'
 
 var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -55,10 +57,10 @@ var eventsList = React.createClass({
                     {(event) => <EventRow event={event}/>} />
                 }
             })()}
-            <Tabs selected="future" style={{backgroundColor: 'white'}}
-             onSelect={(el) => {this.setState({page: el.props.name});return {style:{color:'red'}}}}>
-               <Text name="future">Zukünftige Anlässe</Text>
-               <Text name="back">Vergangene Anlässe</Text>
+            <Tabs selected="back" style={s.tabBar}
+             onSelect={(el) => {this.setState({page: el.props.name});return {style:{color:baseStyle.colors.main}}}}>
+                <Text name="back">Vergangene Anlässe</Text>
+                <Text name="future">Zukünftige Anlässe</Text>
            </Tabs>
             </View>
         );

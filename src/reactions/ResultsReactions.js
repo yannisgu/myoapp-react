@@ -23,8 +23,6 @@ app.on("openResults").subscribe(async (event) => {
                 results.categories[i] = resultsRanking.parseRanking(cat);
             }
 
-            console.log(results)
-
             var value = {};
             value[event.id] = results;
             resultsStore.get().events.set(value);

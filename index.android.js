@@ -27,6 +27,7 @@ var MapsList = require("./src/components/MapsList")
 var ResultsIndex = require("./src/components/ResultsIndex")
 var ResultsByCategory = require("./src/components/ResultsByCategory")
 var ResultsByRunner = require("./src/components/ResultsByRunner")
+var ResultsByLeg = require("./src/components/ResultsByLeg")
 
 require("./src/reactions/Reactions")
 
@@ -56,7 +57,10 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
         case "resultsByCategory":
             return <ResultsByCategory category={route.category} results={route.results} />
         case "resultsByRunner":
-            return <ResultsByRunner runner={route.runner} results={route.results} />
+           return <ResultsByRunner results={route.results} runner={route.runner} category={route.category} />
+       case "resultsByLeg":
+           return <ResultsByLeg results={route.results} leg={route.leg} category={route.category} />
+
     }
 };
 
@@ -72,6 +76,7 @@ var MyOAppReact = React.createClass({
             initialRoute={firstRoute}
             configureScene={() => Navigator.SceneConfigs.FadeAndroid}
             renderScene={RouteMapper}
+            sceneStyle={{backgroundColor: "white"}}
             />
         );
   }

@@ -11,7 +11,8 @@ var {
   Text,
   View,
   Navigator,
-  LinkingIOS
+  LinkingIOS,
+  TouchableOpacity
 } = React;
 
 var EventsList = require("./src/components/EventsList")
@@ -22,6 +23,10 @@ require("./src/reactions/Reactions")
 var ResultsIndex = require("./src/components/ResultsIndex")
 var ResultsByCategory = require("./src/components/ResultsByCategory")
 var ResultsByRunner = require("./src/components/ResultsByRunner")
+var ResultsByLeg = require("./src/components/ResultsByLeg")
+
+
+var style = require("./src/styles/IosIndexStyle")
 
 var app = require("./src/App")
 
@@ -30,7 +35,35 @@ var _navigator = null;
 app.on("openUrl").subscribe(function(url) {
     LinkingIOS.openURL(url);
 });
+var NavigationBarRouteMapper = {
+  RightButton: function() {
+      return null;
+  },
+  LeftButton: function(route, navigator, index, navState) {
+    if (index === 0) {
+      return null;
+    }
 
+    var previousRoute = navState.routeStack[index - 1];
+    return (
+      <TouchableOpacity
+        onPress={() => navigator.pop()}>
+        <Text style={style.titleBarButton}>
+          Zurück
+        </Text>
+      </TouchableOpacity>
+    );
+  },
+
+  Title: function(route, navigator, index, navState) {
+    return (
+      <Text style={style.titleBarTitle}>
+        {route.title}
+      </Text>
+    );
+  },
+
+};
 
 
 var MyOAppReact = React.createClass({
@@ -46,17 +79,19 @@ var MyOAppReact = React.createClass({
                 }
                return <EventsList />
            case "eventDetail":
-                this.navigationBar.setState({title: route.event.name, showBack: true})
+                //this.navigationBar.setState({title: route.event.name, showBack: true})
                return <EventDetail event={route.event} />
            case "mapsList":
-                this.navigationBar.setState({title: "Karten: " + route.event.map, showBack: true})
+                //this.navigationBar.setState({title: "Karten: " + route.event.map, showBack: true})
                return <MapsList event={route.event} />
            case "resultsIndex":
                 return <ResultsIndex event={route.event} />
             case "resultsByCategory":
                  return <ResultsByCategory category={route.category} results={route.results} />
              case "resultsByRunner":
-                return <ResultsByRunner restuls={route.results} runner={route.runner} />
+                return <ResultsByRunner results={route.results} runner={route.runner} category={route.category} />
+            case "resultsByLeg":
+                return <ResultsByLeg results={route.results} leg={route.leg} category={route.category} />
 
        }
    },
@@ -70,21 +105,30 @@ var MyOAppReact = React.createClass({
     },
     render: function() {
       var firstRoute = {
-          name: 'index'
+          name: 'index',
+          title: "MyOApp"
       };
-      console.log("test")
 
-    return (<View style={{ flex: 1, }}>
-                <IosNavigationBar ref={n => this.navigationBar = n} onBack={this.onBack}/>
+    return (<View style={{flex: 1}}>
                 <Navigator
                   initialRoute={firstRoute}
                   configureScene={() => Navigator.SceneConfigs.FloatFromBottom}
                   renderScene={this.renderScene}
                   ref={n => this.navigator = n}
+                  sceneStyle={style.scene}
+                  navigationBar={
+                  <Navigator.NavigationBar
+                    routeMapper={NavigationBarRouteMapper}
+                    style={style.titleBar}
+                  />
+                }
                   />
             </View>
     );
   }
 });
+
+
+
 
 AppRegistry.registerComponent('MyOAppReact', () => MyOAppReact);
