@@ -9,6 +9,7 @@ var {
 } = React;
 
 import app from '../App'
+import style from  '../styles/EventRowStyle'
 
 var eventRow = React.createClass({
     onPress: function() {
@@ -26,7 +27,7 @@ var eventRow = React.createClass({
             (event.region ? event.region : "") +
             (event.region && event.organiser ? ", " : "") +
             (event.organiser ? event.organiser : "")
-            return <TouchableHighlight onPress={this.onPress}>
+            return <TouchableHighlight underlayColor={style.colors.main}  onPress={this.onPress}>
                 <View key={event.name}>
                     <View style={style.mainRow}><Text style={style.mainRowText}>{event.name}</Text></View>
                     <View style={style.subRow}><Text style={style.subRowText}>{line2}</Text></View>
@@ -37,22 +38,6 @@ var eventRow = React.createClass({
     }
 });
 
-var style = {
-    subRow: {
-        height: 20
-    },
-    subRowText: {
-        color: 'black'
-    },
-    mainRow: {
-        height: 26,
-        overflow: 'hidden'
-    },
-    mainRowText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: 'black'
-    }
-}
+
 
 export default eventRow;

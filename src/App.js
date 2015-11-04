@@ -27,6 +27,9 @@ class App extends Emitter {
         this.on("openResultsLeg").subscribe((data) => {
             this._navigator.push({name: "resultsByLeg", title: data.category.name + ": " + data.leg,leg: data.leg, results: data.results, category: data.category})
         });
+        this.on("openAboutPage").subscribe((data) => {
+            this._navigator.push({name: "about", title: "Über MyOApp"})
+        });
     }
 
     setNavigator(navigator) {

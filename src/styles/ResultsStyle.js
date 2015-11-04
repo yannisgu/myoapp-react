@@ -11,6 +11,9 @@ let style = {
     listViewCell: {
         ...base.listViewCell
 
+    },
+    colors: {
+        ...base.colors
     }
 }
 

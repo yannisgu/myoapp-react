@@ -15,10 +15,9 @@ var ResultsByRunner = React.createClass({
     render: function() {
         var runner = this.props.runner;
         var results = this.props.results;
-        console.log(this.props.category)
         return <ScrollView>
             {runner.splits.map((s) => {
-                return <TouchableHighlight onPress={() => app.emit("openResultsLeg", {results, leg: s.leg, category: this.props.category})}>
+                return <TouchableHighlight underlayColor={style.colors.main}  key={s.number} onPress={() => app.emit("openResultsLeg", {results, leg: s.leg, category: this.props.category})}>
                     <View style={style.listViewRow}>
                         <Text style={style.listViewRowText}>{s.number}</Text>
                         <View  style={style.listViewCell}>

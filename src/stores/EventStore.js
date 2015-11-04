@@ -8,7 +8,6 @@ export default store;
 
 async function loadEvents() {
     var items = JSON.parse(await localStorage.get("events"));
-    console.log(items)
     store.get().events.set(items);
 
     var events = await oevents.getAll();

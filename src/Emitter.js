@@ -16,7 +16,7 @@ class Emitter {
     emit (name, data) {
         var fnName = createName(name);
         this.subjects[fnName] || (this.subjects[fnName] = new Rx.Subject());
-        this.subjects[fnName].onNext(data);
+        requestAnimationFrame(() => this.subjects[fnName].onNext(data));
     }
     on (name) {
         var fnName = createName(name);

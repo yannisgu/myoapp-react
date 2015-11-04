@@ -18,6 +18,9 @@ var style = {
     linkText: {
         ...base.text,
         fontWeight: 'bold',
+    },
+    colors: {
+        ...base.colors
     }
 }
 

@@ -15,6 +15,9 @@ let style = {
         fontWeight: 'bold',
         marginLeft: 5,
         marginTop: 6
+    },
+    colors: {
+        ...base.colors
     }
 }
 

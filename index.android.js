@@ -11,7 +11,8 @@ var {
   Text,
   View,
   Navigator,
-  BackAndroid
+  BackAndroid,
+  TouchableOpacity
 } = React;
 
 var app = require( "./src/App")
@@ -40,6 +41,32 @@ BackAndroid.addEventListener('hardwareBackPress', () => {
     return false;
 });
 
+import style from "./src/styles/AndroidIndexStyle"
+
+var NavigationBarRouteMapper = {
+  RightButton: function(route, navigator, index, navState) {
+      if(route.name == "index") {
+          return <TouchableOpacity onPress={() => app.emit("openAboutPage")}>
+            <Text style={style.titleBarButton}>
+              Über MyOApp
+            </Text>
+          </TouchableOpacity>
+      }
+      return null;
+  },
+  LeftButton: function(route, navigator, index, navState) {
+    return null;
+  },
+
+  Title: function(route, navigator, index, navState) {
+    return (
+      <Text style={style.titleBarTitle}>
+        {route.title}
+      </Text>
+    );
+  },
+
+};
 
 var RouteMapper = function(route, navigationOperations, onComponentRef) {
     _navigator = navigationOperations;
@@ -77,6 +104,12 @@ var MyOAppReact = React.createClass({
             configureScene={() => Navigator.SceneConfigs.FadeAndroid}
             renderScene={RouteMapper}
             sceneStyle={{backgroundColor: "white"}}
+            navigationBar={
+                <Navigator.NavigationBar
+                  routeMapper={NavigationBarRouteMapper}
+                  style={style.titleBar}
+                />
+              }
             />
         );
   }

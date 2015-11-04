@@ -14,21 +14,26 @@ import style from '../styles/ResultsStyle';
 
 var ResultsIndex = React.createClass({
     componentDidMount: function() {
-        resultsStore.on("update", (value) => this.setState({results: value.events[this.props.event.id] || {categories: []}}));
+        resultsStore.on("update", (value) => this.setState({results: value.events[this.props.event.id]}));
     },
     getInitialState: function() {
-        return {results: resultsStore.get().events[this.props.event.id] || {categories: []}};
+        return {results: resultsStore.get().events[this.props.event.id]};
     },
     render: function() {
-        return <ScrollView>
-            {this.state.results.categories.map((c) => {
-                return <TouchableHighlight onPress={() => app.emit("openResultsForCategory", {results: this.state.results, category: c})}>
-                    <View style={style.listViewRow}>
-                        <Text style={style.listViewRowText}>{c.name}</Text>
-                    </View>
-                </TouchableHighlight>
-            })}
-        </ScrollView>
+        if(this.state.results) {
+            return <ScrollView>
+                {this.state.results.categories.map((c) => {
+                    return <TouchableHighlight underlayColor={style.colors.main} key={c.name} onPress={() => app.emit("openResultsForCategory", {results: this.state.results, category: c})}>
+                        <View style={style.listViewRow}>
+                            <Text style={style.listViewRowText}>{c.name}</Text>
+                        </View>
+                    </TouchableHighlight>
+                })}
+            </ScrollView>
+        }
+        else {
+            return <View><Text>Loading...</Text></View>
+        }
     }
 });
 

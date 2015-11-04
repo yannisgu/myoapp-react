@@ -15,7 +15,7 @@ var ResultsByCategory = React.createClass({
         var category = this.props.category;
         return <ScrollView>
             {category.runners.map((r) => {
-                return <TouchableHighlight onPress={() => app.emit("openResultsForRunner", {results: this.props.results, runner: r, category: category})}>
+                return <TouchableHighlight underlayColor={s.colors.main} key={r.fullName} onPress={() => requestAnimationFrame(() => app.emit("openResultsForRunner", {results: this.props.results, runner: r, category: category}))}>
                     <View style={s.listViewRow}>
                         <Text style={s.listViewRowText}>{r.rank}. </Text>
                         <Text style={s.listViewRowText}>{r.fullName} </Text>

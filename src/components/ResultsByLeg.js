@@ -26,7 +26,7 @@ var ResultsByLeg = React.createClass({
         return <ScrollView>
             {runners.map((r) => {
                 var fullRunner = category.runners.find((r2 => r2.fullName == r.fullName));
-                return <TouchableHighlight onPress={() => app.emit("openResultsForRunner", {results: this.props.results, category: category, runner: fullRunner})}>
+                return <TouchableHighlight underlayColor={style.colors.main}  key={r.fullName} onPress={() => app.emit("openResultsForRunner", {results: this.props.results, category: category, runner: fullRunner})}>
                     <View style={style.listViewRow}>
                         <Text style={style.listViewRowText}>
                             {r.splitRank}. {r.fullName} {r.split} {r.splitBehind}

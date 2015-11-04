@@ -25,7 +25,6 @@ var eventDetail = React.createClass({
         app.emit("openUrl", this.props.event.urlResults)
     },
     openResults: function() {
-        console.log("asdf")
         app.emit("openResults", this.props.event)
     },
     openTimetable: function() {
@@ -72,29 +71,29 @@ var eventDetail = React.createClass({
                 <Text style={style.value}>{event.eventCenter}</Text>
              </View>
              {(() => {if(event.url) {
-                 return <TouchableHighlight onPress={this.openDesciption} style={style.row}>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openDesciption} style={style.row}>
                     <Text style={style.linkText}>Aussschreibung</Text>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlStartlist) {
-                 return <TouchableHighlight onPress={this.openStartlist} style={style.row}>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openStartlist} style={style.row}>
                     <Text style={style.linkText}>Starliste</Text>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlResults) {
-                 return <TouchableHighlight onPress={this.openResults} style={style.row}>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openResults} style={style.row}>
                     <Text style={style.linkText}>Resultate</Text>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlResults) {
-                 return <TouchableHighlight onPress={this.openExternalResults} style={style.row}>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openExternalResults} style={style.row}>
                     <Text style={style.linkText}>Resultate (Erweitert)</Text>
                  </TouchableHighlight>
              }})()}
-             <TouchableHighlight onPress={this.openTimetable} style={style.row}>
+             <TouchableHighlight underlayColor={style.colors.main} onPress={this.openTimetable} style={style.row}>
                 <Text style={style.linkText}>Anfahrt</Text>
             </TouchableHighlight>
-            <TouchableHighlight onPress={this.openMaps} style={style.row}>
+            <TouchableHighlight underlayColor={style.colors.main} onPress={this.openMaps} style={style.row}>
                <Text style={style.linkText}>Karten</Text>
            </TouchableHighlight>
          </View>

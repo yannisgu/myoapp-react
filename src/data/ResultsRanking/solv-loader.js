@@ -17,11 +17,10 @@ var win1252 = require("windows-1252");
 
 module.exports = async function(id) {
     var url = "http://o-l.ch/cgi-bin/results?type=rang&kind=all&zwizt=1&csv=1&rl_id=" + id;
-    console.log(url)
+
 
     var response = await fetch(url);
     var body = await response.text();
-    console.log(body)
     /*var buffer = await response.arrayBuffer();
     var array = new Int8Array(buffer);
     var byteString = "";
@@ -73,7 +72,6 @@ module.exports = async function(id) {
 
       if ((tokens.length - 12) < category.controls * 2) {
         // some crappy SOLV data...
-        console.log('fix crappy data from SOLV - not enough tokens on line for runner ' + runner.fullName);
         for (var i = tokens.length; i < category.controls * 2 + 12; i++) {
           if (i % 2 === 0) {
             tokens[i] = category.runners.length === 0 ? '???' : category.runners[0].splits[(i - 12) / 2].code;
@@ -97,6 +95,5 @@ module.exports = async function(id) {
 
       category.runners.push(runner);
     });
-    console.log(result)
     return result;
 }

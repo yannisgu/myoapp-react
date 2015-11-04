@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.myoappreact">
+    package="com.monkeytech.myoapp.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

@@ -1,4 +1,4 @@
-package com.myoappreact;
+package com.monkeytech.myoapp.android;
 
 import android.app.Activity;
 import android.os.Bundle;

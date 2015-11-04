@@ -34,7 +34,6 @@ module.exports.parseRanking = function(json) {
   };
 
   // define the legs
-  console.log( json.runners[0].splits)
   result.legs = json.runners[0].splits.map(function(split, idx, splits) {
     var from = idx === 0 ? 'St' : splits[idx - 1].code;
     return {
@@ -67,8 +66,6 @@ module.exports.parseRanking = function(json) {
         }
 
         if (parseTime(splitTime) < 0) {
-          console.log('bad boy!!! @ ' + idx);
-          console.log(runner.fullName);
         }
 
         return {
@@ -86,8 +83,6 @@ module.exports.parseRanking = function(json) {
     runner.splits.forEach(function(split, idx) {
       if (split.split !== '-') {
         if (result.legs.length <= idx) {
-          console.log('more splits than legs?! ' + result.legs.length + ' <= ' + idx);
-          console.log(runner.fullName + ' ' + json.name);
           return;
         }
         result.legs[idx].runners.push({
@@ -194,7 +189,6 @@ module.exports.parseRanking = function(json) {
     result.runners.forEach(function(runner) {
       var split = runner.splits[idx];
       if (!split) {
-        console.log('invalid split @ ' + idx + ' for runner ' + runner.fullName);
       }
       if (split.split !== '-') {
         arr.push({
@@ -284,8 +278,6 @@ module.exports.parseRanking = function(json) {
           if (parseTime(split.time) !== null) {
             var t = parseTime(split.time) - parseTime(leaderTime);
             if (t < 0) {
-              console.log(split.time + ' < ' + leader.time);
-              console.log(leader.rank);
             }
             split.overallBehind = formatTime(t);
             split.fastestBehind = formatTime(parseTime(split.time) - parseTime(result.legs[splitIdx].fastestTime));

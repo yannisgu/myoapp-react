@@ -17,7 +17,7 @@ var MapRow = React.createClass({
         var map = this.props.map;
         var thumbnailLink = "http://omaps.worldofo.com/images/"+ map.thumblink + "_s.jpg";
 
-        return <TouchableHighlight  onPress={this.openMap}>
+        return <TouchableHighlight underlayColor={style.colors.main}   onPress={this.openMap}>
             <View style={style.row}>
                 <Image style={style.image} source={{uri: thumbnailLink}}  style={{width: 40, height: 40}}/>
                 <Text style={style.label}>{map.compname}</Text>

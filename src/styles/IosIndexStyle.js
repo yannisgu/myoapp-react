@@ -17,6 +17,7 @@ let style = {
         ...baseStyle.button,
         fontSize: 16,
         paddingLeft: 10,
+        paddingRight: 10,
         marginTop: 10
     },
     scene: {

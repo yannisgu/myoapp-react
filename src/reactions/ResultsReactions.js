@@ -13,7 +13,6 @@ app.on("openResults").subscribe(async (event) => {
                 results = JSON.parse(cacheValue);
             }
             else {
-                console.log(event)
                 results = await resultsService.getResults(event);
                 await localStorage.set("results-" + event.id, JSON.stringify(results));
             }
@@ -28,7 +27,6 @@ app.on("openResults").subscribe(async (event) => {
             resultsStore.get().events.set(value);
         }
         catch(error) {
-            console.log(error)
         }
     }
 });
