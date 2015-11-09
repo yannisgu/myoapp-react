@@ -3,8 +3,8 @@ import base from './BaseStyle'
 
 var style = {
     row: {
-        flexDirection: 'row',
-        height: 30
+        ...base.listViewRow,
+        flexDirection: 'row'
     },
     label: {
         ...base.text,

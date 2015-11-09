@@ -18,6 +18,11 @@ let style = {
     },
     colors: {
         ...base.colors
+    },
+    loading: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent:'center'
     }
 }
 

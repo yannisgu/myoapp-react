@@ -49,12 +49,17 @@ var eventsList = React.createClass({
 
             {(() => {
                 if(this.state.page == "future") {
-                    return <ListView  ref={c => this.listView = c} dataSource={this.state.futureDataSource} renderRow=
+                    return <ListView  ref={c => this.listView = c}
+                        style={s.listView}
+                        dataSource={this.state.futureDataSource} renderRow=
                     {(event) => <EventRow event={event}/>} />
                 }
                 else {
-                    return <ListView  ref={c => this.listView = c} dataSource={this.state.pastDataSource} renderRow=
-                    {(event) => <EventRow event={event}/>} />
+                    return <ListView
+                        ref={c => this.listView = c}
+                        dataSource={this.state.pastDataSource}
+                        renderRow={(event) => <EventRow event={event}/>}
+                        style={s.listView}/>
                 }
             })()}
             <Tabs selected="back" style={s.tabBar}

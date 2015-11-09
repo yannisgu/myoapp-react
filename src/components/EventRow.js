@@ -27,8 +27,8 @@ var eventRow = React.createClass({
             (event.region ? event.region : "") +
             (event.region && event.organiser ? ", " : "") +
             (event.organiser ? event.organiser : "")
-            return <TouchableHighlight underlayColor={style.colors.main}  onPress={this.onPress}>
-                <View key={event.name}>
+            return <TouchableHighlight underlayColor={style.colors.main} key={event.name}  onPress={this.onPress}>
+                <View style={style.listViewRow}>
                     <View style={style.mainRow}><Text style={style.mainRowText}>{event.name}</Text></View>
                     <View style={style.subRow}><Text style={style.subRowText}>{line2}</Text></View>
                     <View style={style.subRow}><Text style={style.subRowText}>{line3}</Text></View>

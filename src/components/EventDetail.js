@@ -5,7 +5,8 @@ var {
   Text,
   View,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView
 } = React;
 
 import app from '../App'
@@ -26,6 +27,32 @@ var eventDetail = React.createClass({
     },
     openResults: function() {
         app.emit("openResults", this.props.event)
+    },
+    openOlana: async function() {
+        try {
+            let SOLV_URL = "http://o-l.ch/cgi-bin/fixtures?json=1&mode=results&year={year}";
+            var event = this.props.event;
+            var date = new Date(event.date);
+            var year = date.getFullYear();
+            var solvURL = SOLV_URL.replace("{year}", year);
+            console.log(solvURL)
+            var eventsResponse = await fetch(solvURL);
+            var events = JSON.parse((await eventsResponse.text()).replace(/\t/g, ' ')).ResultLists;
+            console.log(events)
+            console.log(event)
+            var id;
+
+            for(var i in events) {
+                if(events[i].UniqueID == event.idSource) {
+                    id = events[i].ResultListID;
+                }
+            }
+            app.emit("openUrl", "http://ol.zimaa.ch/event/solv/" + id + "/categories");
+        }
+        catch(error) {
+            console.log(error)
+        }
+
     },
     openTimetable: function() {
         var item = this.props.event;
@@ -53,7 +80,7 @@ var eventDetail = React.createClass({
          var event = this.props.event;
          var date = new Date(event.date);
          var dateString = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
-         return <View>
+         return <ScrollView>
             <View style={style.row}>
                 <Text style={style.label}>Name</Text>
                 <Text style={style.value}>{event.name}</Text>
@@ -71,32 +98,35 @@ var eventDetail = React.createClass({
                 <Text style={style.value}>{event.eventCenter}</Text>
              </View>
              {(() => {if(event.url) {
-                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openDesciption} style={style.row}>
-                    <Text style={style.linkText}>Aussschreibung</Text>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openDesciption}>
+                    <View style={style.row}><Text style={style.linkText}>Aussschreibung</Text></View>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlStartlist) {
-                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openStartlist} style={style.row}>
-                    <Text style={style.linkText}>Starliste</Text>
+                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openStartlist}>
+                    <View style={style.row}><Text style={style.linkText}>Starliste</Text></View>
                  </TouchableHighlight>
              }})()}
              {(() => {if(event.urlResults) {
-                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openResults} style={style.row}>
-                    <Text style={style.linkText}>Resultate</Text>
+                 return <View><TouchableHighlight underlayColor={style.colors.main} onPress={this.openResults}>
+                    <View style={style.row}><Text style={style.linkText}>Resultate</Text></View>
                  </TouchableHighlight>
-             }})()}
-             {(() => {if(event.urlResults) {
-                 return <TouchableHighlight underlayColor={style.colors.main} onPress={this.openExternalResults} style={style.row}>
-                    <Text style={style.linkText}>Resultate (Erweitert)</Text>
+                 <TouchableHighlight underlayColor={style.colors.main} onPress={this.openOlana}>
+                    <View style={style.row}>
+                        <Text style={style.linkText}>Resultate (Olana)</Text>
+                    </View>
                  </TouchableHighlight>
+                 <TouchableHighlight underlayColor={style.colors.main} onPress={this.openExternalResults}>
+                    <View style={style.row}><Text style={style.linkText}>Resultate (o-l.ch)</Text></View>
+                 </TouchableHighlight></View>
              }})()}
-             <TouchableHighlight underlayColor={style.colors.main} onPress={this.openTimetable} style={style.row}>
-                <Text style={style.linkText}>Anfahrt</Text>
+             <TouchableHighlight underlayColor={style.colors.main} onPress={this.openTimetable}>
+                <View style={style.row}><Text style={style.linkText}>Anfahrt</Text></View>
             </TouchableHighlight>
-            <TouchableHighlight underlayColor={style.colors.main} onPress={this.openMaps} style={style.row}>
-               <Text style={style.linkText}>Karten</Text>
+            <TouchableHighlight underlayColor={style.colors.main} onPress={this.openMaps}>
+               <View style={style.row}><Text style={style.linkText}>Karten</Text></View>
            </TouchableHighlight>
-         </View>
+         </ScrollView>
     }
 });
 

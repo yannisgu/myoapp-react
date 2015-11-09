@@ -1375,7 +1375,7 @@ throw new TypeError(
 
 var index=findIndex.call(this,predicate,context);
 return index === -1?undefined:this[index];}});}})();
-__d('MyOAppReact/index.ios.js',["react-native/Libraries/react-native/react-native.js","MyOAppReact/src/components/EventsList.js","MyOAppReact/src/components/MapsList.js","MyOAppReact/src/reactions/Reactions.js","MyOAppReact/src/styles/IosIndexStyle.js","MyOAppReact/src/App.js","MyOAppReact/src/components/EventDetail.js","MyOAppReact/src/components/ResultsIndex.js","MyOAppReact/src/components/ResultsByCategory.js","MyOAppReact/src/components/ResultsByRunner.js","MyOAppReact/src/components/ResultsByLeg.js","MyOAppReact/src/components/About.js"],function(global, require, module, exports) {  'use strict';
+__d('MyOAppReact/index.ios.js',["react-native/Libraries/react-native/react-native.js","MyOAppReact/src/components/EventsList.js","MyOAppReact/src/components/EventDetail.js","MyOAppReact/src/components/MapsList.js","MyOAppReact/src/reactions/Reactions.js","MyOAppReact/src/components/ResultsIndex.js","MyOAppReact/src/components/ResultsByCategory.js","MyOAppReact/src/components/ResultsByRunner.js","MyOAppReact/src/components/ResultsByLeg.js","MyOAppReact/src/components/About.js","MyOAppReact/src/styles/IosIndexStyle.js","MyOAppReact/src/App.js"],function(global, require, module, exports) {  'use strict';
 
 
 
@@ -54049,7 +54049,7 @@ Object.keys(componentOrElement));}
 
 module.exports = findDOMNode;
 });
-__d('MyOAppReact/src/components/EventsList.js',["MyOAppReact/src/stores/EventStore.js","react-native/Libraries/react-native/react-native.js","react-native-tabs/index.js","MyOAppReact/src/styles/EventListStyle.js","MyOAppReact/src/styles/BaseStyle.js","MyOAppReact/src/components/EventRow.js"],function(global, require, module, exports) {  Object.defineProperty(exports,'__esModule',{value:true});function _interopRequireDefault(obj){return obj && obj.__esModule?obj:{'default':obj};}var _storesEventStore=require('MyOAppReact/src/stores/EventStore.js');var _storesEventStore2=_interopRequireDefault(_storesEventStore);var _reactNative=require(
+__d('MyOAppReact/src/components/EventsList.js',["MyOAppReact/src/stores/EventStore.js","react-native/Libraries/react-native/react-native.js","MyOAppReact/src/components/EventRow.js","react-native-tabs/index.js","MyOAppReact/src/styles/EventListStyle.js","MyOAppReact/src/styles/BaseStyle.js"],function(global, require, module, exports) {  Object.defineProperty(exports,'__esModule',{value:true});function _interopRequireDefault(obj){return obj && obj.__esModule?obj:{'default':obj};}var _storesEventStore=require('MyOAppReact/src/stores/EventStore.js');var _storesEventStore2=_interopRequireDefault(_storesEventStore);var _reactNative=require(
 'react-native/Libraries/react-native/react-native.js');var _reactNative2=_interopRequireDefault(_reactNative);var _EventRow=require(
 
 
@@ -54100,12 +54100,17 @@ _reactNative2.default.createElement(View,{style:{flex:1}},
 
 (function(){
 if(_this2.state.page == "future"){
-return _reactNative2.default.createElement(ListView,{ref:function(c){return _this2.listView = c;},dataSource:_this2.state.futureDataSource,renderRow:
+return _reactNative2.default.createElement(ListView,{ref:function(c){return _this2.listView = c;},
+style:_stylesEventListStyle2.default.listView,
+dataSource:_this2.state.futureDataSource,renderRow:
 function(event){return _reactNative2.default.createElement(_EventRow2.default,{event:event});}});}else 
 
 {
-return _reactNative2.default.createElement(ListView,{ref:function(c){return _this2.listView = c;},dataSource:_this2.state.pastDataSource,renderRow:
-function(event){return _reactNative2.default.createElement(_EventRow2.default,{event:event});}});}})(),
+return _reactNative2.default.createElement(ListView,{
+ref:function(c){return _this2.listView = c;},
+dataSource:_this2.state.pastDataSource,
+renderRow:function(event){return _reactNative2.default.createElement(_EventRow2.default,{event:event});},
+style:_stylesEventListStyle2.default.listView});}})(),
 
 
 _reactNative2.default.createElement(_reactNativeTabs2.default,{selected:'back',style:_stylesEventListStyle2.default.tabBar,
@@ -54132,9 +54137,14 @@ function loadEvents(){var
 items,
 
 
-events;return regeneratorRuntime.async(function loadEvents$(context$1$0){while(1) switch(context$1$0.prev = context$1$0.next){case 0:context$1$0.t0 = JSON;context$1$0.next = 3;return regeneratorRuntime.awrap(_dataLocalStorage2.default.get("events"));case 3:context$1$0.t1 = context$1$0.sent;items = context$1$0.t0.parse.call(context$1$0.t0,context$1$0.t1);store.get().events.set(items);context$1$0.next = 8;return regeneratorRuntime.awrap(_dataOEventsService2.default.getAll());case 8:events = context$1$0.sent;context$1$0.next = 11;return regeneratorRuntime.awrap(
-_dataLocalStorage2.default.set("events",JSON.stringify(events)));case 11:
-store.get().events.set(events);case 12:case 'end':return context$1$0.stop();}},null,this);}
+lastUpdate,
+
+
+
+events;return regeneratorRuntime.async(function loadEvents$(context$1$0){while(1) switch(context$1$0.prev = context$1$0.next){case 0:context$1$0.t0 = JSON;context$1$0.next = 3;return regeneratorRuntime.awrap(_dataLocalStorage2.default.get("events"));case 3:context$1$0.t1 = context$1$0.sent;items = context$1$0.t0.parse.call(context$1$0.t0,context$1$0.t1);store.get().events.set(items);context$1$0.next = 8;return regeneratorRuntime.awrap(_dataLocalStorage2.default.get("lastEventsUpdate"));case 8:context$1$0.t2 = context$1$0.sent;lastUpdate = parseInt(context$1$0.t2);if(!lastUpdate){lastUpdate = 0;}context$1$0.next = 13;return regeneratorRuntime.awrap(_dataOEventsService2.default.getAll(lastUpdate));case 13:events = context$1$0.sent;context$1$0.next = 16;return regeneratorRuntime.awrap(
+_dataLocalStorage2.default.set("events",JSON.stringify(events)));case 16:
+store.get().events.set(events);context$1$0.next = 19;return regeneratorRuntime.awrap(
+_dataLocalStorage2.default.set("lastEventsUpdate",new Date().getTime().toString()));case 19:case 'end':return context$1$0.stop();}},null,this);}
 
 
 
@@ -55291,20 +55301,21 @@ return arr;};})()};
 
 module.exports = Frozen;
 });
-__d('MyOAppReact/src/data/OEventsService.js',[],function(global, require, module, exports) {  Object.defineProperty(exports,"__esModule",{value:true});var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if("value" in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var URL="http://oevents.aws.af.cm/events?{query}";var 
+__d('MyOAppReact/src/data/OEventsService.js',["MyOAppReact/src/data/LocalStorage.js"],function(global, require, module, exports) {  Object.defineProperty(exports,"__esModule",{value:true});var _createClass=(function(){function defineProperties(target,props){for(var i=0;i < props.length;i++) {var descriptor=props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if("value" in descriptor)descriptor.writable = true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};})();function _interopRequireDefault(obj){return obj && obj.__esModule?obj:{"default":obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var _LocalStorage=require('MyOAppReact/src/data/LocalStorage.js');var _LocalStorage2=_interopRequireDefault(_LocalStorage);
+
+var URL="http://oevents.aws.af.cm/events?{query}";var 
 
 OEventsService=(function(){function OEventsService(){_classCallCheck(this,OEventsService);}_createClass(OEventsService,[{key:"getAll",value:
 function getAll(lastModification){var 
-
-
 query,
 
 
 
 url,
 
+
 response,
-events;return regeneratorRuntime.async(function getAll$(context$2$0){while(1) switch(context$2$0.prev = context$2$0.next){case 0:lastModification = 0;query = {};query.lastModification = {"$gt":lastModification};query.source = "solv";query["$sort"] = {"date":1};url = URL.replace("{query}",encodeURIComponent(JSON.stringify(query)));context$2$0.next = 8;return regeneratorRuntime.awrap(fetch(url));case 8:response = context$2$0.sent;context$2$0.next = 11;return regeneratorRuntime.awrap(response.json());case 11:events = context$2$0.sent;return context$2$0.abrupt("return",
+events;return regeneratorRuntime.async(function getAll$(context$2$0){while(1) switch(context$2$0.prev = context$2$0.next){case 0:query = {};query.lastModification = {"$gt":lastModification};query.source = "solv";query["$sort"] = {"date":1};url = URL.replace("{query}",encodeURIComponent(JSON.stringify(query)));console.log(url);context$2$0.next = 8;return regeneratorRuntime.awrap(fetch(url));case 8:response = context$2$0.sent;context$2$0.next = 11;return regeneratorRuntime.awrap(response.json());case 11:events = context$2$0.sent;return context$2$0.abrupt("return",
 events);case 13:case "end":return context$2$0.stop();}},null,this);}}]);return OEventsService;})();
 
 
@@ -55358,8 +55369,8 @@ var line3=
 (event.region?event.region:"") + (
 event.region && event.organiser?", ":"") + (
 event.organiser?event.organiser:"");
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventRowStyle2.default.colors.main,onPress:this.onPress},
-_reactNative2.default.createElement(View,{key:event.name},
+return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventRowStyle2.default.colors.main,key:event.name,onPress:this.onPress},
+_reactNative2.default.createElement(View,{style:_stylesEventRowStyle2.default.listViewRow},
 _reactNative2.default.createElement(View,{style:_stylesEventRowStyle2.default.mainRow},_reactNative2.default.createElement(Text,{style:_stylesEventRowStyle2.default.mainRowText},event.name)),
 _reactNative2.default.createElement(View,{style:_stylesEventRowStyle2.default.subRow},_reactNative2.default.createElement(Text,{style:_stylesEventRowStyle2.default.subRowText},line2)),
 _reactNative2.default.createElement(View,{style:_stylesEventRowStyle2.default.subRow},_reactNative2.default.createElement(Text,{style:_stylesEventRowStyle2.default.subRowText},line3))));}});exports.default = 
@@ -67720,7 +67731,11 @@ fontWeight:'bold',
 color:'black'},
 
 colors:_extends({},
-_BaseStyle2.default.colors)};exports.default = 
+_BaseStyle2.default.colors),
+
+listViewRow:_extends({},
+_BaseStyle2.default.listViewRow,{
+flexDirection:'column'})};exports.default = 
 
 
 
@@ -67730,14 +67745,15 @@ __d('MyOAppReact/src/styles/BaseStyle.js',["react-native/Libraries/react-native/
 Platform=_reactNative2.default.Platform;
 
 var colors={
-main:'#f99f17',
+main:'#ff9800',
+accent:'#b2ff59',
 border:'#353535',
 secondBack:'#f0f0f0'};
 
 
 var text={
 color:'black',
-fontSize:18};
+fontSize:16};
 
 
 if(Platform.OS == "android"){
@@ -67753,15 +67769,15 @@ fontSize:18},
 
 listViewRowText:_extends({},
 text,{
-fontSize:22,
-height:40,
-lineHeight:33}),
+fontSize:16}),
 
 listViewRow:{
 flexDirection:'row',
 borderBottomWidth:1,
 borderBottomColor:colors.border,
-paddingLeft:10},
+paddingLeft:16,
+paddingTop:16,
+paddingBottom:20},
 
 
 listViewCell:{
@@ -67872,12 +67888,26 @@ flex:1}});
 
 module.exports = Tabs;
 });
-__d('MyOAppReact/src/styles/EventListStyle.js',["MyOAppReact/src/styles/BaseStyle.js"],function(global, require, module, exports) {  Object.defineProperty(exports,'__esModule',{value:true});function _interopRequireDefault(obj){return obj && obj.__esModule?obj:{'default':obj};}var _BaseStyle=require('MyOAppReact/src/styles/BaseStyle.js');var _BaseStyle2=_interopRequireDefault(_BaseStyle);
+__d('MyOAppReact/src/styles/EventListStyle.js',["MyOAppReact/src/styles/BaseStyle.js","react-native/Libraries/react-native/react-native.js"],function(global, require, module, exports) {  Object.defineProperty(exports,'__esModule',{value:true});function _interopRequireDefault(obj){return obj && obj.__esModule?obj:{'default':obj};}var _BaseStyle=require('MyOAppReact/src/styles/BaseStyle.js');var _BaseStyle2=_interopRequireDefault(_BaseStyle);var _reactNative=require(
+'react-native/Libraries/react-native/react-native.js');var _reactNative2=_interopRequireDefault(_reactNative);var 
+
+Platform=_reactNative2.default.Platform;
+
+
+var top;
+var lvPaddingTop;
+if(Platform.OS == "android"){
+top = 0;
+lvPaddingTop = 40;}
 
 
 var style={
 tabBar:{
-backgroundColor:_BaseStyle2.default.colors.secondBack}};exports.default = 
+backgroundColor:_BaseStyle2.default.colors.secondBack,
+top:top},
+
+listView:{
+paddingTop:lvPaddingTop}};exports.default = 
 
 
 
@@ -67893,8 +67923,9 @@ __d('MyOAppReact/src/components/EventDetail.js',["react-native/Libraries/react-n
 
 
 
+
 'MyOAppReact/src/App.js');var _App2=_interopRequireDefault(_App);var _stylesEventDetailStyle=require(
-'MyOAppReact/src/styles/EventDetailStyle.js');var _stylesEventDetailStyle2=_interopRequireDefault(_stylesEventDetailStyle);var AppRegistry=_reactNative2.default.AppRegistry;var StyleSheet=_reactNative2.default.StyleSheet;var Text=_reactNative2.default.Text;var View=_reactNative2.default.View;var ListView=_reactNative2.default.ListView;var TouchableHighlight=_reactNative2.default.TouchableHighlight;
+'MyOAppReact/src/styles/EventDetailStyle.js');var _stylesEventDetailStyle2=_interopRequireDefault(_stylesEventDetailStyle);var AppRegistry=_reactNative2.default.AppRegistry;var StyleSheet=_reactNative2.default.StyleSheet;var Text=_reactNative2.default.Text;var View=_reactNative2.default.View;var ListView=_reactNative2.default.ListView;var TouchableHighlight=_reactNative2.default.TouchableHighlight;var ScrollView=_reactNative2.default.ScrollView;
 
 var eventDetail=_reactNative2.default.createClass({displayName:'eventDetail',
 componentDidMount:function(){},
@@ -67911,6 +67942,32 @@ _App2.default.emit("openUrl",this.props.event.urlResults);},
 
 openResults:function(){
 _App2.default.emit("openResults",this.props.event);},
+
+openOlana:function callee$0$0(){var 
+
+SOLV_URL,
+event,
+date,
+year,
+solvURL,
+
+eventsResponse,
+events,
+
+
+id,
+
+i;return regeneratorRuntime.async(function callee$0$0$(context$1$0){while(1) switch(context$1$0.prev = context$1$0.next){case 0:context$1$0.prev = 0;SOLV_URL = "http://o-l.ch/cgi-bin/fixtures?json=1&mode=results&year={year}";event = this.props.event;date = new Date(event.date);year = date.getFullYear();solvURL = SOLV_URL.replace("{year}",year);console.log(solvURL);context$1$0.next = 9;return regeneratorRuntime.awrap(fetch(solvURL));case 9:eventsResponse = context$1$0.sent;context$1$0.t0 = JSON;context$1$0.next = 13;return regeneratorRuntime.awrap(eventsResponse.text());case 13:context$1$0.t1 = context$1$0.sent.replace(/\t/g,' ');events = context$1$0.t0.parse.call(context$1$0.t0,context$1$0.t1).ResultLists;console.log(events);console.log(event);for(i in events) {
+if(events[i].UniqueID == event.idSource){
+id = events[i].ResultListID;}}
+
+
+_App2.default.emit("openUrl","http://ol.zimaa.ch/event/solv/" + id + "/categories");context$1$0.next = 24;break;case 21:context$1$0.prev = 21;context$1$0.t2 = context$1$0['catch'](0);
+
+
+console.log(context$1$0.t2);case 24:case 'end':return context$1$0.stop();}},null,this,[[0,21]]);},
+
+
 
 openTimetable:function(){
 var item=this.props.event;
@@ -67938,7 +67995,7 @@ render:function(){var _this=this;
 var event=this.props.event;
 var date=new Date(event.date);
 var dateString=date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
-return _reactNative2.default.createElement(View,null,
+return _reactNative2.default.createElement(ScrollView,null,
 _reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},
 _reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.label},'Name'),
 _reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.value},event.name)),
@@ -67956,30 +68013,33 @@ _reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default
 _reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.value},event.eventCenter)),
 
 (function(){if(event.url){
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openDesciption,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Aussschreibung'));}})(),
+return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openDesciption},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Aussschreibung')));}})(),
 
 
 (function(){if(event.urlStartlist){
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openStartlist,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Starliste'));}})(),
+return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openStartlist},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Starliste')));}})(),
 
 
 (function(){if(event.urlResults){
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openResults,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Resultate'));}})(),
+return _reactNative2.default.createElement(View,null,_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openResults},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Resultate'))),
+
+_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openOlana},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},
+_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Resultate (Olana)'))),
 
 
-(function(){if(event.urlResults){
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openExternalResults,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Resultate (Erweitert)'));}})(),
+_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:_this.openExternalResults},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Resultate (o-l.ch)'))));}})(),
 
 
-_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:this.openTimetable,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Anfahrt')),
+_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:this.openTimetable},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Anfahrt'))),
 
-_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:this.openMaps,style:_stylesEventDetailStyle2.default.row},
-_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Karten')));}});exports.default = 
+_reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesEventDetailStyle2.default.colors.main,onPress:this.openMaps},
+_reactNative2.default.createElement(View,{style:_stylesEventDetailStyle2.default.row},_reactNative2.default.createElement(Text,{style:_stylesEventDetailStyle2.default.linkText},'Karten'))));}});exports.default = 
 
 
 
@@ -67991,9 +68051,9 @@ __d('MyOAppReact/src/styles/EventDetailStyle.js',["MyOAppReact/src/styles/BaseSt
 
 
 var style={
-row:{
-flexDirection:'row',
-height:30},
+row:_extends({},
+_BaseStyle2.default.listViewRow,{
+flexDirection:'row'}),
 
 label:_extends({},
 _BaseStyle2.default.text,{
@@ -68029,16 +68089,21 @@ __d('MyOAppReact/src/components/MapsList.js',["react-native/Libraries/react-nati
 
 var MapsList=_reactNative2.default.createClass({displayName:"MapsList",
 componentDidMount:function(){var _this=this;
-_storesMapsStore2.default.on("update",function(value){return _this.setState({maps:value.events[_this.props.event.id] || []});});},
+_storesMapsStore2.default.on("update",function(value){return _this.setState({maps:value.events[_this.props.event.id]});});},
 
 getInitialState:function(){
-return {maps:_storesMapsStore2.default.get().events[this.props.event.id] || []};},
+return {maps:_storesMapsStore2.default.get().events[this.props.event.id]};},
 
 render:function(){
+if(this.state.maps){
 return _reactNative2.default.createElement(ScrollView,null,
 this.state.maps.map(function(m){
-return _reactNative2.default.createElement(_MapRow2.default,{map:m});}));}});exports.default = 
+return _reactNative2.default.createElement(_MapRow2.default,{map:m});}));}else 
 
+
+
+{
+return _reactNative2.default.createElement(View,{style:_stylesMapsStyle2.default.loading},_reactNative2.default.createElement(Text,null,"Loading..."));}}});exports.default = 
 
 
 
@@ -68072,7 +68137,12 @@ marginLeft:5,
 marginTop:6}),
 
 colors:_extends({},
-_BaseStyle2.default.colors)};exports.default = 
+_BaseStyle2.default.colors),
+
+loading:{
+flex:1,
+alignItems:'center',
+justifyContent:'center'}};exports.default = 
 
 
 
@@ -68187,13 +68257,6 @@ id,
 i;return regeneratorRuntime.async(function getResults$(context$2$0){while(1) switch(context$2$0.prev = context$2$0.next){case 0:date = new Date(event.date);year = date.getFullYear();solvURL = SOLV_URL.replace("{year}",year);context$2$0.next = 5;return regeneratorRuntime.awrap(fetch(solvURL));case 5:eventsResponse = context$2$0.sent;context$2$0.t0 = JSON;context$2$0.next = 9;return regeneratorRuntime.awrap(eventsResponse.text());case 9:context$2$0.t1 = context$2$0.sent.replace(/\t/g,' ');events = context$2$0.t0.parse.call(context$2$0.t0,context$2$0.t1).ResultLists;for(i in events) {
 if(events[i].UniqueID == event.idSource){
 id = events[i].ResultListID;}}context$2$0.next = 14;return regeneratorRuntime.awrap(
-
-
-
-
-
-
-
 
 
 
@@ -68940,7 +69003,7 @@ _reactNative2.default.createElement(Text,{style:_stylesResultsStyle2.default.lis
 
 
 {
-return _reactNative2.default.createElement(View,null,_reactNative2.default.createElement(Text,null,'Loading...'));}}});exports.default = 
+return _reactNative2.default.createElement(View,{style:_stylesResultsStyle2.default.loading},_reactNative2.default.createElement(Text,null,'Loading...'));}}});exports.default = 
 
 
 
@@ -68964,7 +69027,12 @@ _BaseStyle2.default.listViewCell),
 
 
 colors:_extends({},
-_BaseStyle2.default.colors)};exports.default = 
+_BaseStyle2.default.colors),
+
+loading:{
+flex:1,
+alignItems:'center',
+justifyContent:'center'}};exports.default = 
 
 
 
@@ -69068,7 +69136,10 @@ runners = l.runners;}}
 return _reactNative2.default.createElement(ScrollView,null,
 runners.map(function(r){
 var fullRunner=category.runners.find(function(r2){return r2.fullName == r.fullName;});
-return _reactNative2.default.createElement(TouchableHighlight,{underlayColor:_stylesResultsStyle2.default.colors.main,key:r.fullName,onPress:function(){return _App2.default.emit("openResultsForRunner",{results:_this.props.results,category:category,runner:fullRunner});}},
+return _reactNative2.default.createElement(TouchableHighlight,{
+underlayColor:_stylesResultsStyle2.default.colors.main,
+key:r.fullName,
+onPress:function(){return _App2.default.emit("openResultsForRunner",{results:_this.props.results,category:category,runner:fullRunner});}},
 _reactNative2.default.createElement(View,{style:_stylesResultsStyle2.default.listViewRow},
 _reactNative2.default.createElement(Text,{style:_stylesResultsStyle2.default.listViewRowText},
 r.splitRank,'. ',r.fullName,' ',r.split,' ',r.splitBehind)));}));}});exports.default = 

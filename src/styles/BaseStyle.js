@@ -2,14 +2,15 @@ import React from 'react-native';
 var {Platform} = React;
 
 let colors = {
-    main: '#f99f17',
+    main: '#ff9800',
+    accent: '#b2ff59',
     border: '#353535',
     secondBack: '#f0f0f0'
 }
 
 var text = {
     color: 'black',
-    fontSize: 18
+    fontSize: 16
 }
 
 if(Platform.OS == "android") {
@@ -25,15 +26,15 @@ let style = {
     },
     listViewRowText: {
         ...text,
-        fontSize: 22,
-        height: 40,
-        lineHeight: 33
+        fontSize: 16,
     },
     listViewRow: {
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
-        paddingLeft: 10
+        paddingLeft: 16,
+        paddingTop: 16,
+        paddingBottom: 20
 
     },
     listViewCell: {

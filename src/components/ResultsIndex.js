@@ -32,7 +32,7 @@ var ResultsIndex = React.createClass({
             </ScrollView>
         }
         else {
-            return <View><Text>Loading...</Text></View>
+            return <View style={style.loading}><Text>Loading...</Text></View>
         }
     }
 });

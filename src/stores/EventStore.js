@@ -10,9 +10,14 @@ async function loadEvents() {
     var items = JSON.parse(await localStorage.get("events"));
     store.get().events.set(items);
 
-    var events = await oevents.getAll();
+    var lastUpdate = parseInt(await localStorage.get("lastEventsUpdate"));
+    if(!lastUpdate){
+        lastUpdate = 0;
+    }
+    var events = await oevents.getAll(lastUpdate);
     await localStorage.set("events", JSON.stringify(events));
     store.get().events.set(events);
+    await localStorage.set("lastEventsUpdate", new Date().getTime().toString());
 
 }
 

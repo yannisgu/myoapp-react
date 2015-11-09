@@ -18,13 +18,6 @@ class ResultsService {
             }
         }
 
-         /*var url = URL.replace("{id}", id)
-
-         var response = await fetch(url);
-         var results = await response.json();
-
-         return results;*/
-
          return await solvLoader(id);
     }
 }

@@ -18,6 +18,10 @@ let style = {
     },
     colors: {
         ...base.colors
+    },
+    listViewRow: {
+        ...base.listViewRow,
+        flexDirection: 'column'
     }
 }
 

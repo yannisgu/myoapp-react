@@ -12,7 +12,8 @@ var {
   View,
   Navigator,
   BackAndroid,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } = React;
 
 var app = require( "./src/App")
@@ -29,6 +30,7 @@ var ResultsIndex = require("./src/components/ResultsIndex")
 var ResultsByCategory = require("./src/components/ResultsByCategory")
 var ResultsByRunner = require("./src/components/ResultsByRunner")
 var ResultsByLeg = require("./src/components/ResultsByLeg")
+var AboutPage = require("./src/components/About")
 
 require("./src/reactions/Reactions")
 
@@ -47,9 +49,8 @@ var NavigationBarRouteMapper = {
   RightButton: function(route, navigator, index, navState) {
       if(route.name == "index") {
           return <TouchableOpacity onPress={() => app.emit("openAboutPage")}>
-            <Text style={style.titleBarButton}>
-              Über MyOApp
-            </Text>
+            <Image  source={require('image!info')} style={style.titleBarButton} />
+
           </TouchableOpacity>
       }
       return null;
@@ -59,10 +60,10 @@ var NavigationBarRouteMapper = {
   },
 
   Title: function(route, navigator, index, navState) {
-    return (
+    return (<View>
       <Text style={style.titleBarTitle}>
         {route.title}
-      </Text>
+      </Text></View>
     );
   },
 
@@ -87,23 +88,35 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
            return <ResultsByRunner results={route.results} runner={route.runner} category={route.category} />
        case "resultsByLeg":
            return <ResultsByLeg results={route.results} leg={route.leg} category={route.category} />
+       case "about":
+           return <AboutPage />
 
     }
 };
+
+var nBarStyle = Navigator.NavigationBar.StylesAndroid;
+console.log(nBarStyle.Stages.Center.Title.marginLeft)
+
+nBarStyle.Stages.Center.Title.marginLeft = 16;
+nBarStyle.Stages.Left.Title.marginLeft = 16;
+nBarStyle.Stages.Right.Title.marginLeft = 16;
+
 
 var MyOAppReact = React.createClass({
     componentDidMount: function() {
     },
   render: function() {
       var firstRoute = {
-          name: 'index'
+          name: 'index',
+          title: 'MyOApp'
       };
       return (
           <Navigator
             initialRoute={firstRoute}
             configureScene={() => Navigator.SceneConfigs.FadeAndroid}
             renderScene={RouteMapper}
-            sceneStyle={{backgroundColor: "white"}}
+            sceneStyle={style.scene}
+            navigationStyles={nBarStyle}
             navigationBar={
                 <Navigator.NavigationBar
                   routeMapper={NavigationBarRouteMapper}
