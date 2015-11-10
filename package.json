@@ -9,6 +9,7 @@
     "array.prototype.find": "^1.0.0",
     "freezer-js": "^0.9.2",
     "iconv": "^2.1.11",
+    "lodash": "^3.10.1",
     "react-native": "^0.13.1",
     "react-native-navbar": "^1.0.3",
     "react-native-tabs": "^0.1.2",
