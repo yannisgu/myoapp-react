@@ -13,6 +13,7 @@
 .*/node_modules/react-tools/src/renderers/shared/event/EventPropagators.js
 .*/node_modules/react-tools/src/renderers/shared/event/eventPlugins/ResponderEventPlugin.js
 .*/node_modules/react-tools/src/shared/vendor/core/ExecutionEnvironment.js
+.*/node_modules/react-tools/docs/js/react.js
 
 # Ignore commoner tests
 .*/node_modules/commoner/test/.*

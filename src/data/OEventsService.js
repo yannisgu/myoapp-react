@@ -1,6 +1,6 @@
 import LocalStorage from './LocalStorage'
 
-var URL = "http://oevents.aws.af.cm/events?{query}"
+var URL = "http://oevents.herokuapp.com/events?{query}"
 
 class OEventsService {
     async getAll(lastModification) {

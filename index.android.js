@@ -49,7 +49,7 @@ var NavigationBarRouteMapper = {
   RightButton: function(route, navigator, index, navState) {
       if(route.name == "index") {
           return <TouchableOpacity onPress={() => app.emit("openAboutPage")}>
-            <Image  source={require('image!info')} style={style.titleBarButton} />
+            <Image  source={require('./src/img/info.png')} style={style.titleBarButton} />
 
           </TouchableOpacity>
       }
