@@ -7,12 +7,11 @@ var _ = require('lodash');
 let store = new Freezer({events: []});
 
 export default store;
-
 async function loadEvents() {
 
-    var items = JSON.parse(await localStorage.get("events"));
+    var items = JSON.parse(await localStorage.get("events")) || [];
     store.get().events.set(items);
-
+    console.log(items)
     var lastUpdate = parseInt(await localStorage.get("lastEventsUpdate"));
     if(!lastUpdate){
         lastUpdate = 0;
@@ -25,12 +24,17 @@ async function loadEvents() {
         if(ev) {
             items[i] = ev;
         }
-        else {
+    }
 
-            items.push(ev)
+    for(var i in events) {
+        var item = events[i];
+        var ev = items.find((e) => item.id == e.id);
+        if(!ev) {
+            items.push(item)
         }
     }
-    var events = _.sortBy(events, 'date');
+    console.log(items)
+    var events = _.sortBy(items, 'date');
     console.log(events)
 
     await localStorage.set("events", JSON.stringify(events));

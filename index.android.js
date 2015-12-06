@@ -95,7 +95,6 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
 };
 
 var nBarStyle = Navigator.NavigationBar.StylesAndroid;
-console.log(nBarStyle.Stages.Center.Title.marginLeft)
 
 nBarStyle.Stages.Center.Title.marginLeft = 16;
 nBarStyle.Stages.Left.Title.marginLeft = 16;

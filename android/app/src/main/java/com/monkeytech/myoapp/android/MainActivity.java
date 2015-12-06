@@ -10,7 +10,9 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.ivanph.webintent.RNWebIntentPackage;
+
+import com.ivanph.webintent.RNWebIntentPackage;;  // <--- import
+
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
 

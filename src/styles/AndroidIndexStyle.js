@@ -9,7 +9,6 @@ let style = {
     },
     titleBar: {
         backgroundColor: base.colors.main,
-        color: "white"
     },
     titleBarTitle: {
         color: "white",
