@@ -9,6 +9,7 @@ app.on("openResults").subscribe(async (event) => {
         try {
             var cacheValue = await localStorage.get("results-" + event.id);
             var results = null;
+            cacheValue = null
             if(cacheValue) {
                 results = JSON.parse(cacheValue);
             }
@@ -16,7 +17,7 @@ app.on("openResults").subscribe(async (event) => {
                 results = await resultsService.getResults(event);
                 await localStorage.set("results-" + event.id, JSON.stringify(results));
             }
-
+            console.log(results)
             for(var i in results.categories) {
                 var cat = results.categories[i];
                 results.categories[i] = resultsRanking.parseRanking(cat);

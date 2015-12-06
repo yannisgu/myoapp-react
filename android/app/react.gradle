@@ -59,7 +59,7 @@ task bundleReleaseJsAndAssets(type: Exec) {
     commandLine "react-native", "bundle", "--platform", "android", "--dev", "false", "--entry-file",
             entryFile, "--bundle-output", jsBundleFileRelease, "--assets-dest", resourcesDirRelease
 
-    enabled false
+    enabled config.bundleInDebug ?: true
 }
 
 gradle.projectsEvaluated {

@@ -9,18 +9,19 @@ let store = new Freezer({events: []});
 export default store;
 async function loadEvents() {
 
-    var items = JSON.parse(await localStorage.get("events")) || [];
+    var items = JSON.parse(await localStorage.get("eventsNew")) || [];
     store.get().events.set(items);
     console.log(items)
-    var lastUpdate = parseInt(await localStorage.get("lastEventsUpdate"));
+    var lastUpdate = parseInt(await localStorage.get("lastEventsUpdateNew"));
     if(!lastUpdate){
         lastUpdate = 0;
     }
+
     var events = await oevents.getAll(lastUpdate);
     console.log(events)
     for(var i in items) {
         var item = items[i];
-        var ev = events.find((e) => item.id == e.id);
+        var ev = events.find((e) => item.idSource == e.idSource);
         if(ev) {
             items[i] = ev;
         }
@@ -28,18 +29,18 @@ async function loadEvents() {
 
     for(var i in events) {
         var item = events[i];
-        var ev = items.find((e) => item.id == e.id);
+        var ev = items.find((e) => item.idSource == e.idSource);
         if(!ev) {
             items.push(item)
         }
     }
-    console.log(items)
-    var events = _.sortBy(items, 'date');
-    console.log(events)
 
-    await localStorage.set("events", JSON.stringify(events));
+    var events = _.sortBy(items, 'date');
+    
+
+    await localStorage.set("eventsNew", JSON.stringify(events));
     store.get().events.set(events);
-    await localStorage.set("lastEventsUpdate", new Date().getTime().toString());
+    await localStorage.set("lastEventsUpdateNew", new Date().getTime().toString());
 
 }
 

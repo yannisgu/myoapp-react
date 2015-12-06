@@ -23,36 +23,13 @@ var eventDetail = React.createClass({
         app.emit("openUrl", this.props.event.urlStartlist)
     },
     openExternalResults: function() {
-        app.emit("openUrl", this.props.event.urlResults)
+        app.emit("openUrl", "http://o-l.ch/cgi-bin/results?rl_id=" + this.props.event.resultsId)
     },
     openResults: function() {
         app.emit("openResults", this.props.event)
     },
-    openOlana: async function() {
-        try {
-            let SOLV_URL = "http://o-l.ch/cgi-bin/fixtures?json=1&mode=results&year={year}";
-            var event = this.props.event;
-            var date = new Date(event.date);
-            var year = date.getFullYear();
-            var solvURL = SOLV_URL.replace("{year}", year);
-            console.log(solvURL)
-            var eventsResponse = await fetch(solvURL);
-            var events = JSON.parse((await eventsResponse.text()).replace(/\t/g, ' ')).ResultLists;
-            console.log(events)
-            console.log(event)
-            var id;
-
-            for(var i in events) {
-                if(events[i].UniqueID == event.idSource) {
-                    id = events[i].ResultListID;
-                }
-            }
-            app.emit("openUrl", "http://ol.zimaa.ch/event/solv/" + id + "/categories");
-        }
-        catch(error) {
-            console.log(error)
-        }
-
+    openOlana: function() {
+        app.emit("openUrl", "http://ol.zimaa.ch/event/solv/" + this.props.event.resultsId + "/categories");
     },
     openTimetable: function() {
         var item = this.props.event;
@@ -107,7 +84,7 @@ var eventDetail = React.createClass({
                     <View style={style.row}><Text style={style.linkText}>Starliste</Text></View>
                  </TouchableHighlight>
              }})()}
-             {(() => {if(event.urlResults) {
+             {(() => {if(event.resultsId) {
                  return <View><TouchableHighlight underlayColor={style.colors.main} onPress={this.openResults}>
                     <View style={style.row}><Text style={style.linkText}>Resultate</Text></View>
                  </TouchableHighlight>
