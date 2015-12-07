@@ -1,17 +1,18 @@
-/**
-Copyright (c) 2015, Simon Räss
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-**/
-
-
+/*
+ * Copyright 2015 Simon Raess
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 require('array.prototype.find');
 
 var parseTime = require('./time').parseTime;
@@ -66,6 +67,8 @@ module.exports.parseRanking = function(json) {
         }
 
         if (parseTime(splitTime) < 0) {
+          console.log('bad boy!!! @ ' + idx);
+          console.log(runner.fullName);
         }
 
         return {
@@ -83,6 +86,8 @@ module.exports.parseRanking = function(json) {
     runner.splits.forEach(function(split, idx) {
       if (split.split !== '-') {
         if (result.legs.length <= idx) {
+          console.log('more splits than legs?! ' + result.legs.length + ' <= ' + idx);
+          console.log(runner.fullName + ' ' + json.name);
           return;
         }
         result.legs[idx].runners.push({
@@ -189,6 +194,7 @@ module.exports.parseRanking = function(json) {
     result.runners.forEach(function(runner) {
       var split = runner.splits[idx];
       if (!split) {
+        console.log('invalid split @ ' + idx + ' for runner ' + runner.fullName);
       }
       if (split.split !== '-') {
         arr.push({
@@ -278,6 +284,8 @@ module.exports.parseRanking = function(json) {
           if (parseTime(split.time) !== null) {
             var t = parseTime(split.time) - parseTime(leaderTime);
             if (t < 0) {
+              console.log(split.time + ' < ' + leader.time);
+              console.log(leader.rank);
             }
             split.overallBehind = formatTime(t);
             split.fastestBehind = formatTime(parseTime(split.time) - parseTime(result.legs[splitIdx].fastestTime));
