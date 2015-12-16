@@ -9,7 +9,7 @@
     "array.prototype.find": "^1.0.0",
     "freezer-js": "^0.9.4",
     "lodash": "^3.10.1",
-    "react-native": "^0.13.2",
+    "react-native": "^0.14.2",
     "react-native-tabs": "^0.1.3",
     "react-native-webintent": "https://registry.npmjs.org/react-native-webintent/-/react-native-webintent-1.0.3.tgz",
     "rx": "^4.0.7",
